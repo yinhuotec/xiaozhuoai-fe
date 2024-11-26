@@ -20,6 +20,7 @@ import LeftAside from "@/components/mian/LeftAside.vue";
 </template>
 
 <style scoped>
+
 .header{
   display: flex;
   background-color: #f5f7fa;

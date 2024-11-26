@@ -191,6 +191,7 @@ const onpenElmessage=()=>{
 </template>
 
 <style scoped>
+
 .user-content{
   margin-left: auto;
 }
