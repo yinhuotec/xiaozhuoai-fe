@@ -1,11 +1,9 @@
 <script setup>
 
-import { RouterView } from 'vue-router'
-import MainHeader from "@/components/mian/MainHeader.vue";
-import LeftAside from "@/components/mian/LeftAside.vue";
-
+import LeftAside from "@/view/layout/components/LeftAside.vue";
+import {RouterView} from "vue-router";
+import MainHeader from "@/view/layout/components/MainHeader.vue";
 </script>
-
 
 <template>
   <div class="common-layout">
@@ -15,6 +13,7 @@ import LeftAside from "@/components/mian/LeftAside.vue";
         <el-aside class="aside"><LeftAside></LeftAside></el-aside>
         <el-main class="main"><router-view></router-view></el-main>
       </el-container>
+
     </el-container>
   </div>
 </template>
@@ -23,15 +22,16 @@ import LeftAside from "@/components/mian/LeftAside.vue";
 .header{
   display: flex;
   background-color: #f5f7fa;
-  height: 7vh;
+  height: 6vh;
 }
 .aside{
-  width: 18%;
+  width: 17%;
   background-color: #f3f4f6;
 }
 .main{
   background-color: #ffffff;
   flex-grow: 1;
+  padding: 0;
 }
 .container{
   display: flex;
@@ -46,4 +46,36 @@ import LeftAside from "@/components/mian/LeftAside.vue";
   margin: 0px;
   height: 100%;
 }
+@media (max-width: 768px) {
+  html,body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .user-img-div{
+    padding-left: 10px;
+  }
+  .body {
+    height: 100%;
+    flex-direction: column;
+  //align-items: stretch;
+  }
+  .el-header {
+    padding: 10px;
+  }
+  .el-container {
+    flex-direction: column;
+  }
+  .el-aside {
+    width: 100%;
+    height: 0;
+    margin-bottom: 10px;
+  }
+  .el-main {
+    height: 100vh;
+    width: 100vw;
+    padding: 0px;
+  }
+}
+/* 媒体查询结束 */
 </style>

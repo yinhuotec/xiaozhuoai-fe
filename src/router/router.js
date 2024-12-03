@@ -2,22 +2,16 @@ import {createRouter,createWebHashHistory} from "vue-router";
 
 
 const routes = [
-    //主页路由
     {
         path:"/",
-        name:"Main",
-        component:() => import("@/view/home/index.vue")
-    },
-    {
-        path:"/login",
-        name:"login",
-        component:() => import("@/view/home/LoginView.vue"),
-        redirect:"/conversation",
+        name:"main",
+        component:() => import("@/view/layout/Layout.vue"),
+        redirect:"/chat",
         children:[
             {
-                path:"/conversation",
-                name:"conversation",
-                component:() => import("@/view/ConversationView.vue")
+                path:"/chat",
+                name:"chat",
+                component:() => import("@/view/home/index.vue")
             },
             {
                 path:"/search",

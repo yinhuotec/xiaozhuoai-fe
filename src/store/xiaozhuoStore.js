@@ -6,7 +6,7 @@ export const useXiaozhuoStore = defineStore(
     {
         state: () => ({
             //定义数据的地方
-            modulePath: "http://118.31.58.215:8888/api/chat",
+            modulePath: "https://www.yinhuotec.cn/api/chat",
             orContent: ''
         }),
         getters: {
@@ -25,8 +25,7 @@ export const useXiaozhuoStore = defineStore(
                   //res.data 是一直整个响应 所以res.data.data就是响应结果json字符串
                   //但是json字符串不能以 java中 xxx.xxx获取它的属性值,所以我们先要把他转换成一个对象
                   let jsonString = res.data.data
-                  const paresData = JSON.parse(jsonString)
-                  const content = paresData.choices[0].message.content
+                  const content = jsonString.choices[0].message.content
                   this.orContent = content
               })
             }
