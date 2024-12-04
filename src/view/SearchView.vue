@@ -22,11 +22,11 @@ import {Promotion} from "@element-plus/icons-vue";
     <div class="foot">
       <el-input class="foot-input" v-model="input"
       :suffix-icon="Promotion"
-                style="width: 67.25%;height: 7%;margin-left: 16.375%"
+                style="width: 67.25%;height: 50px;margin-left: 16.375%"
                 placeholder="按下ENTER发送消息"
       >
       </el-input>
-      <div class="bottom-text" style="margin-top: 1%">研发团队©卓软信息工作室 蜀ICP备2024111152号-1</div>
+      <div class="bottom-text" style="margin-top: 0.95%">研发团队©卓软信息工作室 蜀ICP备2024111152号-1</div>
     </div>
   </div>
 
@@ -54,7 +54,7 @@ import {Promotion} from "@element-plus/icons-vue";
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin-top: 100px;
+  margin-top: 63px;
 }
 .content{
   margin-top: 50px;
