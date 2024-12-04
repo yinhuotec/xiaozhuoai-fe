@@ -11,20 +11,20 @@ const login =()=>{
 <template>
   <LoginFrame v-model="LoginDialogVisible"></LoginFrame>
   <div class="logo-div">
-    <el-image src="logo.png" class="logo-img"></el-image>
-    <!--    <el-image src="src/assets/logo.png" class="logo-img"></el-image>-->
+<!--    <el-image src="logo.png" class="logo-img"></el-image>-->
+        <el-image src="src/assets/logo.png" class="logo-img"></el-image>
     <div class="logo-font">小卓</div>
   </div>
   <!--  <div class="user">-->
   <!--    <el-image src="src/assets/usericon.png" style="width: 23px;height: 23px"></el-image>-->
   <!--  </div>-->
-  <!--  <div class="login">-->
-  <!--    <el-button type="info"-->
-  <!--               style="background-color: black;border-radius: 10px;margin-right: 20px"-->
-  <!--               @click="login"-->
-  <!--    >-->
-  <!--      登录</el-button>-->
-  <!--  </div>-->
+    <div class="login">
+      <el-button type="info"
+                 style="background-color: black;border-radius: 10px;"
+                 @click="login"
+      >
+        登录</el-button>
+    </div>
 </template>
 
 <style scoped>

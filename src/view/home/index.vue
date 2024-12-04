@@ -59,16 +59,16 @@ const { orContentData } = storeToRefs(useXiaozhuoStore())
                                      }
                             ">
             <div class="main-card-div2" >
-              <el-image src="joinus.png" class="join-us-img"></el-image>
-              <p class="main-card-font" >
-                加入我们
-                <p class="main-card-font2">QQ群917731344</p>
-              </p>
-              <!--              <el-image src="src/assets/joinus.JPG" class="join-us-img"></el-image>-->
-              <!--              <p class="main-card-font" >-->
-              <!--                加入我们-->
-              <!--                <p class="main-card-font2">QQ群917731344</p>-->
-              <!--              </p>-->
+<!--              <el-image src="joinus.png" class="join-us-img"></el-image>-->
+<!--              <p class="main-card-font" >-->
+<!--                加入我们-->
+<!--                <p class="main-card-font2">QQ群917731344</p>-->
+<!--              </p>-->
+                            <el-image src="src/assets/joinus.JPG" class="join-us-img"></el-image>
+                            <p class="main-card-font" >
+                              加入我们
+                              <p class="main-card-font2">QQ群917731344</p>
+                            </p>
             </div>
 
           </el-card>
@@ -87,10 +87,10 @@ const { orContentData } = storeToRefs(useXiaozhuoStore())
                                margin-left: 0;
                                }">
             <div class="main-card-div2" >
-              <el-image src="joinus.png" class="join-us-img"></el-image>
+              <el-image src="src/assets/joinus.JPG" class="join-us-img"></el-image>
               <p class="main-card-font" >
                 小卓API
-                <p class="main-card-font2">https://yinhuotec.cn/api/chat</p>
+                <p class="main-card-font2">https://www.yinhuotec.cn/api/chat</p>
               </p>
               <!--              <el-image src="api.jpg" class="api-img"></el-image>-->
               <!--              <p class="main-card-font">-->

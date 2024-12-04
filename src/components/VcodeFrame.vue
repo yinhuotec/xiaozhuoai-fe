@@ -36,7 +36,6 @@ const close =()=>{
     }
 
 const back =()=>{
-
   centerDialogVisible.value = false;
 }
 </script>
@@ -52,17 +51,17 @@ const back =()=>{
   >
     <div class="body">
       <div class="title">
-        <div class="back">
-          <el-button type="info" plain style="border: none;width: 10px;border-radius: 10px" @click="back">
-            <el-icon><ArrowLeftBold /></el-icon>
-          </el-button>
-        </div>
-        <div style="font-weight: bold;color: black;font-size: 15px">&nbsp;&nbsp;输入6位验证码</div>
+<!--        <div class="back">-->
+<!--          <el-button type="info" plain style="border: none;width: 10px;border-radius: 10px" @click="back">-->
+<!--            <el-icon><ArrowLeftBold /></el-icon>-->
+<!--          </el-button>-->
+<!--        </div>-->
+        <div style="font-weight: bold;color: black;font-size: 15px">&nbsp;&nbsp;验证</div>
       </div>
 
       <div class="content">
         <div class="bigtitle">输入6位验证码</div>
-        <div class="reminder">验证码已发送至&nbsp;+86&nbsp;{{phoneNumber}}</div>
+<!--        <div class="reminder">验证码已发送至&nbsp;+86&nbsp;{{phoneNumber}}</div>-->
         <div class="code">
 <!--          <input class="input">-->
 <!--          <input class="input">-->
@@ -81,7 +80,7 @@ const back =()=>{
               maxlength="1"
           />
         </div>
-        <div class="resend">重新发送</div>
+        <div class="resend"></div>
       </div>
     </div>
 

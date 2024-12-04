@@ -7,34 +7,15 @@ const centerDialogVisible = ref(false)
 
 const VcodeDialogVisible = ref(false)
 const checked1 = ref(false)
-const input = ref("")
+// const input = ref("")
 
 const isPhoneNumber =(input) =>{
   const regex = /^1[3-9]\d{9}$/;
   return regex.test(input)
 }
 const verify =() =>{
-  if(input.value !== "" && checked1.value === true){
-    if(isPhoneNumber(input.value) === true){
-      ElMessage({
-        message: '已发送验证码',
-        type: 'success',
-      })
       VcodeDialogVisible.value=true
-      localStorage.setItem("phoneNumber",input.value)
-    }else {
-      ElMessage({
-        message: '号码不正确',
-        type: 'warning',
-      })
-    }
 
-  }else {
-    ElMessage({
-      message: '请先阅读小卓协议哦',
-      type: 'warning',
-    })
-  }
 }
 
 </script>
@@ -52,12 +33,26 @@ const verify =() =>{
     <div class="title">
       <div class="title-body">登录以解锁更多功能</div>
     </div>
-    <div class="i-body">
-      <el-input v-model="input" style="width: 240px;height: 40px" placeholder="请输入手机号" />
-    </div>
+      <div class="qr-img">
+        <el-image src="src/assets/qrcode.jpg">
+
+        </el-image>
+      </div>
+      <div>
+        <div class="tip-box">
+          <div>扫码关注【小卓AI】公众号</div>
+        </div>
+        <div class="tip-box">
+          <div>回复关键字【验证码】，获取验证码</div>
+        </div>
+
+      </div>
+<!--    <div class="i-body">-->
+<!--      <el-input v-model="input" style="width: 240px;height: 40px" placeholder="请输入手机号" />-->
+<!--    </div>-->
 
     <div class="b-body">
-      <el-button type="primary" style="width: 240px;height: 36px" :disabled="!input"
+      <el-button type="primary" style="width: 240px;height: 36px" :disabled="!checked1"
       @click="verify"
       >下一步</el-button>
       <VcodeFrame v-model="VcodeDialogVisible"></VcodeFrame>
@@ -66,18 +61,24 @@ const verify =() =>{
     <div class="title" style="margin-top: 30px">
       <el-checkbox v-model="checked1" label="已阅读并同意 小卓AI 的使用协议和隐私政策。" size="small" />
     </div>
-    <div class="title">
-      <span style="font-size: xx-small">无法登录？</span>
-      <span style="font-size: xx-small">提交反馈</span>
-    </div>
-
-
-
+<!--    <div class="title">-->
+<!--      <span style="font-size: xx-small">无法登录？</span>-->
+<!--      <span style="font-size: xx-small">提交反馈</span>-->
+<!--    </div>-->
   </el-dialog>
 
 </template>
 
 <style scoped>
+.tip-box{
+  display: flex;
+  justify-content: center;
+}
+.qr-img{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .alert:first-child{
   margin: 0;
 }

@@ -29,6 +29,7 @@ import MainHeader from "@/view/layout/components/MainHeader.vue";
   background-color: #f3f4f6;
 }
 .main{
+  height: 94vh;
   background-color: #ffffff;
   flex-grow: 1;
   padding: 0;
@@ -60,8 +61,10 @@ import MainHeader from "@/view/layout/components/MainHeader.vue";
     flex-direction: column;
   //align-items: stretch;
   }
-  .el-header {
-    padding: 10px;
+  .header{
+    display: flex;
+    background-color: #f5f7fa;
+    height: 6vh;
   }
   .el-container {
     flex-direction: column;
@@ -71,10 +74,11 @@ import MainHeader from "@/view/layout/components/MainHeader.vue";
     height: 0;
     margin-bottom: 10px;
   }
-  .el-main {
-    height: 100vh;
-    width: 100vw;
-    padding: 0px;
+  .main{
+    height: 94vh;
+    background-color: #ffffff;
+    flex-grow: 1;
+    padding: 0;
   }
 }
 /* 媒体查询结束 */
