@@ -1,49 +1,71 @@
 <script setup>
-
 import {Promotion} from "@element-plus/icons-vue";
 import {useXiaozhuoStore} from "@/store/xiaozhuoStore.js";
 import {ref} from "vue";
 import {ElMessage} from "element-plus";
 import {storeToRefs} from "pinia";
 import LoginFrame from "@/components/LoginFrame.vue";
-
+import {useAuthStore} from "@/store/authStore.js";
+import { onMounted } from 'vue'
+import hljs from "highlight.js";
+const authStore = useAuthStore()
+const {getTokenCode} = storeToRefs(authStore)
+const LoginDialogVisible = ref(false);
 const xiaozhuoStore = useXiaozhuoStore()
 const input = ref("")
 const messagelistData = ref([]);
 let firstTime = true;
-
+const method = async()=>{
+  await authStore.isLogin();
+}
 const sendMessage = async () =>{
-  if(input.value===""){
-    ElMessage({
-      message: '请先输入信息',
-      type: 'warning',
-    })
+  //未登录弹出登录框
+  if(getTokenCode.value===500){
+    LoginDialogVisible.value = true;
   }else{
-    messagelistData.value.push(input.value)
-    if(firstTime){
-      const orContentDiv = document.getElementById('orContentDiv');
-      orContentDiv.classList.add('orContentDivHidden');
-      firstTime = false
+    //已登录
+    if(input.value===""){
+      ElMessage({
+        message: '请先输入信息',
+        type: 'warning',
+      })
+    }else{
+      messagelistData.value.push(input.value)
+      if(firstTime){
+        const orContentDiv = document.getElementById('orContentDiv');
+        orContentDiv.classList.add('orContentDivHidden');
+        firstTime = false
+      }
+      ElMessage({
+        message: '小卓正在思考...请稍等',
+        type: 'success',
+      })
+      await xiaozhuoStore.chat(input.value)
+      await xiaozhuoStore.wordToPicture(input.value)
+      messagelistData.value.push(orContentData.value)
+      console.log(orContentData.value)
+      input.value= '';
     }
-    ElMessage({
-      message: '小卓正在思考...请稍等',
-      type: 'success',
-    })
-    await xiaozhuoStore.chat(input.value)
-    messagelistData.value.push(orContentData.value)
-    input.value= '';
   }
 }
-const { orContentData } = storeToRefs(useXiaozhuoStore())
+const string = "吃什么"
+const { orContentData , nickname ,base64ImageData} = storeToRefs(useXiaozhuoStore())
+hljs.highlightAll();
+onMounted(async () => {
+
+  await method()
+})
 </script>
 
 <template>
+  <LoginFrame v-model="LoginDialogVisible"></LoginFrame>
   <!--滚动区域-->
   <div class="scrolldiv">
     <el-scrollbar>
       <div id="orContentDiv" class="orContentDiv"  v-if="messagelistData.length === 0">
         <p class="welcometext">您好!</p>
         <p class="welcometext">欢迎使用小卓AI.</p>
+
 
         <div class="main-card-div" >
           <el-card shadow="hover"  body-class="main-card1"
@@ -64,10 +86,10 @@ const { orContentData } = storeToRefs(useXiaozhuoStore())
 <!--                加入我们-->
 <!--                <p class="main-card-font2">QQ群917731344</p>-->
 <!--              </p>-->
-                            <el-image src="src/assets/joinus.JPG" class="join-us-img"></el-image>
+                            <el-image src="joinus.png" class="join-us-img"></el-image>
                             <p class="main-card-font" >
-                              加入我们
-                              <p class="main-card-font2">QQ群917731344</p>
+                              介绍
+                              <p class="main-card-font2">此站点基于CLM-4大模型二次开发</p>
                             </p>
             </div>
 
@@ -87,10 +109,10 @@ const { orContentData } = storeToRefs(useXiaozhuoStore())
                                margin-left: 0;
                                }">
             <div class="main-card-div2" >
-              <el-image src="src/assets/joinus.JPG" class="join-us-img"></el-image>
+              <el-image src="joinus.png" class="join-us-img"></el-image>
               <p class="main-card-font" >
-                小卓API
-                <p class="main-card-font2">https://www.yinhuotec.cn/api/chat</p>
+                项目来源
+                <p class="main-card-font2">卓软信息工作室自主研发，仅用于学习和测试</p>
               </p>
               <!--              <el-image src="api.jpg" class="api-img"></el-image>-->
               <!--              <p class="main-card-font">-->
@@ -110,33 +132,26 @@ const { orContentData } = storeToRefs(useXiaozhuoStore())
 
       <div v-if="messagelistData.length > 0">
         <div v-for="(item,index) in messagelistData" :key="item">
-          <div style=
-                   "display: flex;align-items: center"
+          <div style="display: flex;align-items: center;margin-top: 10px;margin-bottom: 10px"
           >
-
-            <div class="user-content" v-if="index%2===0">
-
-              <div class="user-img-div">
-<!--                <el-image class="user-img"  src="user.png">-->
-<!--                </el-image>-->
-                                <el-image class="user-img"  src="src/assets/user.JPG">
-                                </el-image>
-                <div class="user-font">用户_ZR001</div>
-              </div>
-              <pre class="pre-font">{{item}}</pre>
+            <div class="user-content" style="" v-if="index%2===0">
+                <pre class="pre-font">{{item}}</pre>
             </div>
 
             <div v-if="index%2!==0">
+              <img :src="base64ImageData" alt="">
               <div class="ai-div">
 <!--                <el-image class="ai-div-img"  src="ai.png">-->
 <!--                </el-image>-->
-                                <el-image class="ai-div-img"  src="src/assets/ai.JPG">
+                                <el-image class="ai-div-img"  src="ai.png">
                                 </el-image>
                 <div class="ai-font">小卓</div>
               </div>
-              <pre class="pre-font" >{{item}}</pre>
+              <div >
+<!--                <highlightjs class="hightlight" autodetect :code=""></highlightjs>-->
+                <pre class="pre-font" >{{item}}</pre>
+              </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -161,6 +176,13 @@ const { orContentData } = storeToRefs(useXiaozhuoStore())
 </template>
 
 <style scoped>
+.code-style{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.user-content{
+  background-color: #f5f5f5 ; border-radius: 14px
+}
 .user-img{
   height: 25px;
   width: 25px;
@@ -197,9 +219,9 @@ const { orContentData } = storeToRefs(useXiaozhuoStore())
   margin-right: auto;
 }
 .pre-font{
-  margin-left: 39px;
-  font-size: 20px;
-
+  font-size: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .user-font{
   font-size: small;
@@ -365,8 +387,9 @@ pre {
     padding: 0;
   }
   .pre-font{
+    font-size: 15px;
     padding-left: 10px;
-    padding-right: 20px;
+    padding-right: 10px;
   }
   .user-img-div{
     padding-left: 10px;

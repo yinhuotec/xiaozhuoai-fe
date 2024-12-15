@@ -8,7 +8,7 @@ const router = useRouter();
 const paths = {
   1: '/chat',
   2: '/search',
-  3: '/product'
+  3: '/product-image'
 };
 
 const navigateTo = (index) => {
@@ -43,7 +43,7 @@ const alert =()=>{
         <el-icon><Search /></el-icon>
         <span >AI搜索</span>
       </el-menu-item>
-      <el-menu-item index="3" @click="alert">
+      <el-menu-item index="3" @click="navigateTo('3')">
         <el-icon><Picture /></el-icon>
         <span >照片生成</span>
       </el-menu-item>

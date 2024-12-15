@@ -11,7 +11,7 @@ const routes = [
             {
                 path:"/chat",
                 name:"chat",
-                component:() => import("@/view/home/index.vue")
+                component:() => import("@/view/chat/index.vue")
             },
             {
                 path:"/search",
@@ -19,9 +19,9 @@ const routes = [
                 component:() => import("@/view/SearchView.vue")
             },
             {
-                path:"/product",
-                name:"product",
-                component:() => import("@/view/ProductView.vue")
+                path:"/product-image",
+                name:"product-image",
+                component:() => import("@/view/product-image/ProductImage.vue")
             },
         ]
     }

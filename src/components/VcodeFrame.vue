@@ -1,6 +1,8 @@
 <script setup>
 import {ref} from "vue";
 import { useRouter } from 'vue-router';
+import {useAuthStore} from "@/store/authStore.js";
+const authStore = useAuthStore();
 
 
 const centerDialogVisible = ref(false)
@@ -14,7 +16,11 @@ const router = useRouter();
 const close =()=>{
   inputs.value=Array(6).fill('');
 }
-    const handleKeyup = (event, index) => {
+
+const waitTwoSeconds = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 1500));
+}
+const  handleKeyup = async (event, index) => {
       // 检查是否是数字并且不是退格键（keyCode 8）
       if (/\d/.test(event.key) && event.keyCode !== 8) {
         // 如果不是最后一个输入框，则聚焦到下一个输入框
@@ -29,15 +35,29 @@ const close =()=>{
       if (index === 5 && inputs.value[index] !== '') {
         // 检查第六个输入框是否已经有输入
         // 如果有输入，则跳转到 LoginView
+        let finalValue = inputs.value.join('');
 
-        router.push("/login");
+        const codingDiv = document.querySelector('.codeing')
+        if (codingDiv){
+          codingDiv.style.display = 'block';
+        }
+        await waitTwoSeconds();
+         authStore.login(finalValue).then(()=>{
+          if (codingDiv){
+            codingDiv.style.display = 'none';
+          }
+        }).catch(() =>{
+           if (codingDiv){
+             codingDiv.style.display = 'none';
+           }
+
+        })
       }
-
     }
 
-const back =()=>{
-  centerDialogVisible.value = false;
-}
+// const back =()=>{
+//   centerDialogVisible.value = false;
+// }
 </script>
 
 <template>
@@ -51,24 +71,12 @@ const back =()=>{
   >
     <div class="body">
       <div class="title">
-<!--        <div class="back">-->
-<!--          <el-button type="info" plain style="border: none;width: 10px;border-radius: 10px" @click="back">-->
-<!--            <el-icon><ArrowLeftBold /></el-icon>-->
-<!--          </el-button>-->
-<!--        </div>-->
         <div style="font-weight: bold;color: black;font-size: 15px">&nbsp;&nbsp;验证</div>
       </div>
 
       <div class="content">
         <div class="bigtitle">输入6位验证码</div>
-<!--        <div class="reminder">验证码已发送至&nbsp;+86&nbsp;{{phoneNumber}}</div>-->
         <div class="code">
-<!--          <input class="input">-->
-<!--          <input class="input">-->
-<!--          <input class="input">-->
-<!--          <input class="input">-->
-<!--          <input class="input">-->
-<!--          <input class="input">-->
           <input
               class="input"
               v-for="(input, index) in inputs"
@@ -80,7 +88,9 @@ const back =()=>{
               maxlength="1"
           />
         </div>
-        <div class="resend"></div>
+        <div class="resend">
+          <div class="codeing">验证中...</div>
+        </div>
       </div>
     </div>
 
@@ -93,10 +103,12 @@ const back =()=>{
 .resend {
   font-size: 12px;
   cursor: pointer;
-}
-.resend{
   margin-top: 20px;
 }
+.codeing{
+  display: none;
+}
+
 .input{
   text-align: center;
   width: 40px;

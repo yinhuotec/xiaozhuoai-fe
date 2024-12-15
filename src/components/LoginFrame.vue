@@ -34,7 +34,7 @@ const verify =() =>{
       <div class="title-body">登录以解锁更多功能</div>
     </div>
       <div class="qr-img">
-        <el-image src="src/assets/qrcode.jpg">
+        <el-image src="qrcode.png">
 
         </el-image>
       </div>
